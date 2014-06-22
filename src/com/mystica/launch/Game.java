@@ -1,13 +1,13 @@
-package com.mystica.component;
-import java.awt.Color;
+package com.mystica.launch;
+import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 
-import javax.swing.JPanel;
-
+import com.mystica.component.Grid;
 import com.mystica.util.LoggingUtil;
 
-public class GamePanel extends JPanel implements Runnable {
+public class Game extends Canvas implements Runnable {
 	
 	private static final long serialVersionUID = -5198592492560424740L;
 
@@ -15,6 +15,8 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	private boolean isRunning = false;
 	private Thread thread;
+	
+	private int tickCount = 0;
 	
 	public synchronized void start() {
 		if (isRunning) {
@@ -26,7 +28,15 @@ public class GamePanel extends JPanel implements Runnable {
 		this.thread.start();
 	}
 	
-	public GamePanel(String[] args) {
+	public synchronized void stop() {
+		if (!isRunning) {
+			return;
+		}
+		
+		this.isRunning = false;
+	}
+	
+	public Game(String[] args) {
 		this.createGame(args);
 	}
 	
@@ -43,45 +53,60 @@ public class GamePanel extends JPanel implements Runnable {
 	//Game Loop method TODO: Go over this and make sure it is working properly
 	public void beginGameLoop() {
 		long beginTime = System.nanoTime();
-		double ticks = 60.0D;
-		double ns = 100000000 / ticks;
+		double tick = 60.0D;
+		double ns = 1000000000 / tick;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int updates = 0;
+		int ticks = 0;
 		int frames = 0;
+		
 		while (this.isRunning) {
 			long currentTime = System.nanoTime();
 			delta += (currentTime - beginTime) / ns;
 			beginTime = currentTime;
+			
 			while (delta >= 1) {
+				ticks++;
 				tick();
-				updates++;
 				delta--;
 			}
-			this.repaint();
+			
 			frames++;
+			this.render();
 			
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				LoggingUtil.getLogger().log(Level.INFO, "Ticks: " + ticks + "       FPS: " + frames);
+				LoggingUtil.getLogger().log(Level.INFO, "Ticks: " + ticks + ", FPS: " + frames);
 				frames = 0;
-				updates = 0;
+				ticks = 0;
 			}
 		}
 	}
 	
-	private void tick() {}
+	private void tick() {
+		tickCount++;
+	}
+	
+	private void render() {
+		BufferStrategy bs = this.getBufferStrategy();
+		
+		if (bs == null) {
+			this.createBufferStrategy(2);
+			return;
+		}
+		
+		Graphics g = bs.getDrawGraphics();
+		Grid grid = new Grid();
+		grid.drawGridGraphics(g);
+		
+		g.dispose();
+		bs.show();
+		
+	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-	}
-
-	@Override
 	public void run() {
-		LoggingUtil.getLogger().log(Level.INFO, "Thread is starting");
+		LoggingUtil.getLogger().log(Level.INFO, "Game loop is starting");
 		this.beginGameLoop();
 	}
 }

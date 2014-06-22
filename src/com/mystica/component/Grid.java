@@ -6,20 +6,14 @@ import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.util.logging.Level;
 
-import javax.swing.JPanel;
-
 import com.mystica.util.LoggingUtil;
 
-public class GridPanel extends JPanel {
+public class Grid {
 	
-	private static final long serialVersionUID = 2662192240461369332L;
-
-	public GridPanel() {
-		this.setOpaque(false);
+	public Grid() {
 	}
 	
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public Graphics drawGridGraphics(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -64,5 +58,6 @@ public class GridPanel extends JPanel {
 				g2d.draw(gp);
 			}
 		}
+		return (Graphics)g2d;
 	}
 }
