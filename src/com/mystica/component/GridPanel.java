@@ -1,5 +1,4 @@
 package com.mystica.component;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,8 +23,8 @@ public class GridPanel extends JPanel {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(Color.LIGHT_GRAY);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		//drawing rhombus
 		
+		//Draws the rhombuses on the screen in a grid like fashion
 		int rhombus_width = 40;
 		int rhombus_height = 24;
 		
@@ -57,16 +56,13 @@ public class GridPanel extends JPanel {
 				gp.moveTo(chunk_x, chunk_y);
 				
 				for (int j = 1; j < x_points.length; j++) {
-//					LoggingUtil.getLogger().log(Level.INFO, Integer.toString(x_points[j] + x * rhombus_width));
+					/* Logs the coordinate points of the rhombus edges
+					LoggingUtil.getLogger().log(Level.INFO, Integer.toString(x_points[j] + x * rhombus_width));
+					*/
 					gp.lineTo(x_points[j] + x * rhombus_width, y_points[j] + y * rhombus_height);
 				}
-				
 				g2d.draw(gp);
 			}
 		}
-		
-		//end drawing rhombus
-		
 	}
-	
 }

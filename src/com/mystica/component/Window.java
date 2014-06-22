@@ -1,7 +1,5 @@
 package com.mystica.component;
-
 import javax.swing.JFrame;
-
 
 public class Window {
 

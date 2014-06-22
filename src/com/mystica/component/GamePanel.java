@@ -1,5 +1,4 @@
 package com.mystica.component;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.logging.Level;
@@ -41,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
+	//Game Loop method TODO: Go over this and make sure it is working properly
 	public void beginGameLoop() {
 		long beginTime = System.nanoTime();
 		double ticks = 60.0D;
@@ -70,16 +70,13 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
-	private void tick() {
-		
-	}
+	private void tick() {}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
-		
 	}
 
 	@Override
