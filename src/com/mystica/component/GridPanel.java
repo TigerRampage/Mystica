@@ -26,7 +26,7 @@ public class GridPanel extends JPanel {
 		
 		//Draws the rhombuses on the screen in a grid like fashion
 		int rhombus_width = 40;
-		int rhombus_height = 24;
+		int rhombus_height = 20;
 		
 		int[] x_points = {rhombus_width / 2, rhombus_width, rhombus_width / 2, 0, rhombus_width / 2};
 		int[] y_points = {0, rhombus_height / 2, rhombus_height, rhombus_height / 2, 0};
