@@ -1,9 +1,12 @@
-package com.mystica.launch;
+package com.mystica.component;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Level;
 
 import javax.swing.JPanel;
+
+import com.mystica.util.LoggingUtil;
 
 public class GamePanel extends JPanel implements Runnable {
 	
@@ -60,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-//				Logger.getGlobal().log(Level.INFO, "Ticks: " + ticks + "       FPS: " + frames);
+				LoggingUtil.getLogger().log(Level.INFO, "Ticks: " + ticks + "       FPS: " + frames);
 				frames = 0;
 				updates = 0;
 			}
@@ -74,13 +77,14 @@ public class GamePanel extends JPanel implements Runnable {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.RED);
+		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 	}
 
 	@Override
 	public void run() {
-//		Logger.getLogger(GamePanel.class.getName()).log(Level.INFO, "Thread is starting");
+		LoggingUtil.getLogger().log(Level.INFO, "Thread is starting");
+		this.beginGameLoop();
 	}
 }
