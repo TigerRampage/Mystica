@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import com.mystica.launch.Game;
 
 public class Window {
-
 	
 	public Window(Game panel) {
 		JFrame f = new JFrame("Mystica");

@@ -10,12 +10,11 @@ import com.mystica.util.LoggingUtil;
 
 public class Grid {
 	
-	public Grid() {
-	}
+	public Grid() {}
 	
 	public Graphics drawGridGraphics(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setColor(Color.LIGHT_GRAY);
+		g2d.setColor(new Color(99, 209, 62, 255));
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		//Draws the rhombuses on the screen in a grid like fashion
@@ -41,7 +40,6 @@ public class Grid {
 		
 		for (int y = 0; y < 16; y++) {
 			for (int x = 0; x < 16; x++) {
-				
 				GeneralPath gp = new GeneralPath(GeneralPath.WIND_EVEN_ODD, x_points.length);
 				
 				int chunk_x = x_points[0] + x * rhombus_width;

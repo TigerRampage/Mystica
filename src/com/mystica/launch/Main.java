@@ -8,13 +8,9 @@ public class Main {
 	public static Game game = null;
 
 	public static void main(String[] args) {
-
 		arguments = args;
-
 		game = new Game(arguments);
-
 		windowInstance = new Window(game);
-		
 		game.start();
 	}
 }
